@@ -1,0 +1,614 @@
+@import url("https://fastly.jsdelivr.net/npm/wanted-sans@1.0.3/fonts/webfonts/variable/complete/WantedSansVariable.css");
+
+/* Tenada (영문 디스플레이) */
+@font-face {
+  font-family: "Tenada";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2") format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+/* 어그로체 (국문 헤드라인) */
+@font-face {
+  font-family: "SBAggro";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroL.woff") format("woff");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SBAggro";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroM.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SBAggro";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  --primary: #DD3B00;
+  --hero-bg: #FFA856;
+  --ink: #1a1a1a;
+  --body: #2b2b2b;
+
+  --font-display: "Tenada", sans-serif;
+  --font-head: "SBAggro", sans-serif;
+  --font-body: "Wanted Sans Variable", "Wanted Sans", sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; }
+
+/* ── 스크롤 구조: 1페이지만 sticky, 2~5페이지는 일반 연결 스크롤 ── */
+.stack { position: relative; }
+
+.panel {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+/* 1페이지만 고정 — 2페이지가 그 위를 덮으며 넘어감 */
+.panel.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+
+/* 레이어 순서(2~5페이지): 흰 배경 ::before(z1) < 레인(z2) < 콘텐츠(z3)
+   → 떨어지는 샌드위치는 흰 배경 위, 모든 콘텐츠 뒤에 위치 */
+.history,
+.variety,
+.store,
+.insta,
+.maker {
+  background: transparent;
+}
+.history::before,
+.variety::before,
+.store::before,
+.insta::before,
+.maker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  z-index: 1;
+}
+
+/* 공통 헤드라인 블록 (2·3·4·5 패널) */
+.headline { text-align: center; }
+.headline .eyebrow {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 1.98vw;
+  letter-spacing: -0.01em;
+}
+.headline .title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 1 — HERO
+════════════════════════════════════════════════════════════ */
+.hero { background: var(--hero-bg); }
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.hero__title {
+  font-family: var(--font-display);
+  color: var(--primary);
+  font-size: 13vw;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+}
+.hero__subtitle {
+  margin-top: 1.2vh;
+  color: #fff;
+  font-size: 1.55vw;
+  line-height: 1.55;
+  text-align: center;
+  font-weight: 500;
+}
+.hero__sandwich {
+  width: 39vw;
+  max-width: 760px;
+  margin-top: 2.2vh;
+  filter: drop-shadow(0 20px 30px rgba(150, 70, 0, 0.18));
+}
+
+/* 떠다니는 재료 일러스트 (블러) */
+.veg {
+  position: absolute;
+  z-index: 1;
+  filter: blur(1.5px);
+  opacity: 0.72;
+  pointer-events: none;
+}
+.veg--tomato  { width: 12vw;  left: 8%;   top: 12%; transform: rotate(-8deg); }
+.veg--lettuce { width: 10vw;  right: 18%; top: 4%;  transform: rotate(10deg); }
+.veg--bread   { width: 9vw;   right: 3%;  top: 42%; transform: rotate(18deg); }
+.veg--ham     { width: 12vw;  left: 2%;   top: 66%; transform: rotate(-6deg); }
+.veg--cheese  { width: 10vw;  right: 6%;  bottom: 4%; transform: rotate(6deg); }
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 2 — 샌드위치의 역사
+════════════════════════════════════════════════════════════ */
+.history__bg {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 92vw;
+  transform: translate(-50%, -50%);
+  opacity: 0.16;
+  pointer-events: none;
+  filter: saturate(1.1);
+}
+.history__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.history .eyebrow { margin-bottom: 1.4vh; }
+.history .title { font-size: 3.4vw; }
+.history__body {
+  margin-top: 3.2vh;
+  color: var(--body);
+  font-size: 1.55vw;
+  line-height: 1.95;
+  font-weight: 500;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 3 — 약 200여개
+════════════════════════════════════════════════════════════ */
+.variety__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.variety .eyebrow { margin-bottom: 1.2vh; }
+.variety .title { font-size: 4.6vw; }
+.variety .title .num { color: var(--primary); }
+
+/* 3~5페이지 연속 낙하 + 5페이지 스택 레인 레이어 */
+#rainLayer {
+  position: absolute;
+  top: 200vh;    /* 3페이지 맨 위 */
+  left: 0;
+  width: 100%;
+  height: 400vh; /* 3~6페이지 (6페이지 바닥까지 쌓임) */
+  z-index: 2;    /* 흰 배경(z1) 위, 콘텐츠(z3) 뒤 */
+  pointer-events: none;
+  overflow: hidden;
+}
+.rain-piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
+}
+/* 모바일: 무거운 그림자 필터 제거로 성능 확보 */
+@media (max-width: 768px), (pointer: coarse) {
+  .rain-piece { filter: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 4 — 전국 샌드위치 매장
+════════════════════════════════════════════════════════════ */
+.store__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14vh;
+}
+.store .eyebrow { margin-bottom: 1.2vh; }
+.store .title { font-size: 3.6vw; }
+
+/* 무한 왼쪽 스크롤 마퀴 */
+.store__viewport {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 6vh;
+  padding: 3vh 0;
+}
+.store__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+.store__viewport:hover .store__track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.store__card {
+  position: relative;
+  flex: 0 0 auto;
+  width: 22vw;
+  aspect-ratio: 1 / 1;
+  margin-right: 1.4vw;
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+.store__card img { width: 100%; height: 100%; object-fit: cover; }
+.store__card:hover { transform: scale(1.05); z-index: 2; }
+
+.store__mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.store__card:hover .store__mask { opacity: 1; }
+
+.store__caption {
+  position: absolute;
+  z-index: 2;
+  left: 1.3vw;
+  bottom: 1.3vw;
+  color: #fff;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.store__card:hover .store__caption { opacity: 1; transform: translateY(0); }
+.store__caption .name {
+  display: block;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.7vw;
+  line-height: 1.2;
+}
+.store__caption .loc {
+  display: block;
+  font-size: 1.15vw;
+  font-weight: 500;
+  margin-top: 0.5vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .store__track { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 5 — #샌드위치
+════════════════════════════════════════════════════════════ */
+.insta__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10vh;
+}
+.insta .eyebrow { margin-bottom: 1.2vh; }
+.insta .title { font-size: 4.2vw; }
+.insta .title .hash { color: var(--primary); }
+
+.insta__rows {
+  margin-top: 5vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.insta__row { width: 100%; overflow: hidden; }
+.insta__track { display: flex; width: max-content; }
+.insta__track img {
+  width: 14vw;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-right: 4px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   이스터에그 — "order" 입력 시 샌드위치 폭죽 (전역 floating)
+════════════════════════════════════════════════════════════ */
+#eggLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+.egg-piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.2));
+}
+.insta__track--left  { animation: marquee-left  50s linear infinite; }
+.insta__track--right { animation: marquee-right 50s linear infinite; }
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .insta__track { animation: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   PANEL 6 — 샌드위치 만들기 (Suika식 드롭)
+════════════════════════════════════════════════════════════ */
+.maker__content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+}
+.maker .headline {
+  position: absolute;
+  top: 12vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+}
+.maker .title { font-size: 3.6vw; }
+
+/* 물리 놀이판 (좌표계 = 픽셀) */
+.maker__stage {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 560px;
+  height: 560px;
+}
+.maker__board { position: absolute; inset: 0; z-index: 2; }
+.maker__piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;   /* 클릭해서 삭제 */
+  cursor: pointer;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.12));
+}
+.maker__piece:hover { filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.12)) brightness(1.08); }
+.maker__bread {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 470px;
+  pointer-events: none;
+}
+.maker__bread--bottom { bottom: 0; clip-path: inset(60% 0 0 0); z-index: 0; } /* 아래 빵(받침) */
+.maker__bread--top { top: 256px; clip-path: inset(0 0 44% 0); z-index: 1; }   /* 위 빵(뚜껑) — 아래에 붙임 */
+
+/* 재료 버튼 */
+.maker__tools {
+  position: absolute;
+  right: 5.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 1.5vw 1.3vw;
+}
+.maker__tool {
+  width: 5.6vw;
+  height: 5.6vw;
+  max-width: 110px;
+  max-height: 110px;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--bg, #eee);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.maker__tool:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+}
+.maker__tool:active { transform: scale(0.95); }
+.maker__tool img { width: 64%; height: 64%; object-fit: contain; }
+
+/* 좁은 화면: 재료 버튼을 샌드위치 아래로 이동 */
+@media (max-width: 900px) {
+  .maker .headline { top: 9vh; }
+  .maker__stage {
+    top: 42%;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  .maker__tools {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 7vh;
+    transform: translateX(-50%);
+    grid-template-columns: repeat(6, auto);
+    gap: 2.6vw;
+  }
+  .maker__tool {
+    width: 11vw;
+    height: 11vw;
+    max-width: 66px;
+    max-height: 66px;
+  }
+}
+@media (max-width: 520px) {
+  .maker__tools { grid-template-columns: repeat(3, auto); gap: 5vw 6vw; bottom: 5vh; }
+  .maker__tool { width: 16vw; height: 16vw; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   상단 네비게이션
+════════════════════════════════════════════════════════════ */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 6000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4vh 3vw;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.topnav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6vw;
+  font-family: var(--font-display);
+  font-size: 1.7vw;
+  line-height: 1;
+  color: var(--primary);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  padding: 0;
+}
+.topnav__logo {
+  height: 2.6vw;
+  max-height: 46px;
+  width: auto;
+  display: block;
+}
+.topnav__menu {
+  display: flex;
+  align-items: center;
+  gap: 2.6vw;
+  list-style: none;
+}
+.topnav__menu button {
+  position: relative;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 1.05vw;
+  color: #333;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0.6vh 0;
+  transition: color 0.2s ease;
+}
+.topnav__menu button:hover { color: var(--primary); }
+.topnav__menu button.is-active {
+  color: var(--primary);
+  font-weight: 700;
+}
+.topnav__menu button.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   반응형 — 태블릿 / 폰에서 글씨·캐러셀 확대
+════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .headline .eyebrow { font-size: 2.6vw; }
+  .history .title,
+  .store .title,
+  .maker .title { font-size: 4.8vw; }
+  .variety .title { font-size: 6.2vw; }
+  .insta .title { font-size: 5.6vw; }
+  .hero__subtitle,
+  .history__body { font-size: 2.2vw; }
+
+  .store__card { width: 34vw; }
+  .store__caption .name { font-size: 3vw; }
+  .store__caption .loc { font-size: 2vw; }
+  .insta__track img { width: 24vw; }
+}
+
+@media (max-width: 600px) {
+  .headline .eyebrow { font-size: 3.8vw; }
+  .hero__title { font-size: 16vw; }
+  .hero__subtitle { font-size: 3.6vw; line-height: 1.5; }
+  .history .title { font-size: 7.5vw; }
+  .history__content { padding: 0 7vw; box-sizing: border-box; }
+  .history__body {
+    font-size: 3.4vw;
+    line-height: 1.75;
+    align-self: stretch;      /* 중앙정렬로 수축되지 않고 폭 채우도록 */
+    word-break: keep-all;     /* 한글 단어 단위로 줄바꿈 */
+  }
+  .history__body br { display: none; } /* 폰에선 자연 줄바꿈 */
+  .variety .title { font-size: 10vw; }
+  .store .title,
+  .maker .title { font-size: 7vw; }
+  .insta .title { font-size: 9vw; }
+
+  /* 캐러셀 크게 */
+  .store__card { width: 60vw; margin-right: 5vw; }
+  .store__caption .name { font-size: 5.2vw; }
+  .store__caption .loc { font-size: 3.6vw; }
+  .insta__track img { width: 44vw; margin-right: 6px; }
+
+  /* 네비게이션 — 한 줄에 다 들어가도록: 모바일은 로고 아이콘만 */
+  .topnav { padding: 1.4vh 3.5vw; }
+  .topnav__wordmark { display: none; }
+  .topnav__logo { height: 7vw; max-height: 40px; }
+  .topnav__menu { gap: 2.6vw; }
+  .topnav__menu button { font-size: 2.9vw; }
+}
+@media (max-width: 380px) {
+  .topnav__brand { font-size: 3.6vw; }
+  .topnav__menu { gap: 2.2vw; }
+  .topnav__menu button { font-size: 2.7vw; }
+}
